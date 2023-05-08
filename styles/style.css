@@ -1,0 +1,214 @@
+* {
+    font-family: 'Satoshi-Variable';
+}
+
+.hidden {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+header {
+    box-shadow: 0px 6px 8px -6px rgba(24, 39, 75, 0.12), 0px 8px 16px -6px rgba(24, 39, 75, 0.08);
+}
+
+.generator-guide {
+    margin-top: 104px;
+}
+
+.generator-guide h1 {
+    font-size: 40px;
+    margin-bottom: 25px;
+}
+
+.generator-guide h2 {
+    font-size: 24px;
+    font-weight: normal;
+    margin-bottom: 25px;
+}
+
+.generator-guide .row p {
+    width: 64%;
+    margin: 0 auto;
+}
+
+.generator-guide .row .item {
+    position: relative;
+}
+
+.generator-guide .row .item::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 60px;
+    height: 18px;
+    top: 25%;
+    right: -10%;
+    background-image: url("../images/Arrow 8.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+}
+
+.generator-guide .row .item-3::after {
+    display: none;
+}
+
+.file-uploader {
+    margin-top: 104px;
+    background-color: #CDEFEC;
+    padding: 104px 0;
+}
+
+.file-uploader h3 {
+    font-size: 40px;
+    margin-bottom: 16px;
+}
+
+.file-uploader h4 {
+    color: #2D8F87;
+    font-size: 24px;
+    font-weight: normal;
+}
+
+.file-uploader p {
+    color: #2D8F87;
+    font-size: 18px;
+    font-weight: normal;
+    max-width: 60%;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.image-upload {
+    position: relative;
+    max-width: 60%;
+    margin: 0 auto;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.image-upload input {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+}
+
+.upload-field {
+    background: #E8F8F6;
+    padding: 12px;
+    border-radius: 11px;
+    display: flex;
+    height: 50vh;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #58CAC0;
+    margin: 40px 0;
+}
+
+.upload-field .file-thumbnail {
+    cursor: pointer;
+    border-radius: 11px;
+    text-align: center;
+    padding: 20px;
+}
+
+.upload-field .file-thumbnail img {
+    width: 200px;
+}
+
+.upload-field .file-thumbnail h3 {
+    font-size: 20px;
+    color: #000000;
+    font-weight: 300;
+    margin: 32px 0;
+}
+
+.upload-field .file-thumbnail span {
+    display: inline-block;
+    padding: 12px 28px;
+    background-color: #3AB6AB;
+    color: #FDF2F2;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+.upload-field .file-thumbnail span:hover {
+    opacity: 0.9;
+}
+
+.upload-field .file-thumbnail p {
+    font-size: 12px;
+    color: #9ABCD1;
+    margin-bottom: 0;
+}
+
+.about {
+    background-color: #F5F5F5;
+    padding: 104px 0;
+}
+
+.about h3 {
+    font-size: 40px;
+    margin-bottom: 32px;
+}
+
+.about h4 {
+    font-size: 20px;
+    font-weight: normal;
+    max-width: 700px;
+    color: #4D4D4D;
+    margin: 32px auto;
+    line-height: 1.5;
+}
+
+.about img {
+    display: block;
+    margin: 5px auto;
+    max-width: 100%;
+}
+
+.about a {
+    display: inline-block;
+    padding: 12px 28px;
+    background-color: #3AB6AB;
+    color: #FDF2F2;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 72px;
+    text-decoration: none;
+}
+.partners {
+    margin-top: 104px;
+}
+
+.partners h3 {
+    font-size: 40px;
+    margin-bottom: 74px;
+}
+.partners .partners-items {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+.partners .partners-items div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.partners .partners-items img {
+    width: 100%;
+}
+
+footer {
+    margin-bottom: 500px;
+    margin-top: 104px;
+    background-color: #F5F5F5;
+    padding: 104px;
+}

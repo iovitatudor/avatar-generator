@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Crossmint</title>
+	<script src="https://unpkg.com/@crossmint/client-sdk-vanilla-ui@0.1.7-alpha.8/lib/index.global.js"></script>
+</head>
+<body>
+
+<crossmint-pay-button
+    clientId="735125ed-e846-4111-adfa-8f9cad54a5c9"
+    mintConfig='{"type":"erc-721","totalPrice":"10","_quantity":"1","quantity":"1"}'
+    environment="staging"
+    paymentMethod="ETH"
+ />
+
+
+<crossmint-pay-button
+    clientId="735125ed-e846-4111-adfa-8f9cad54a5c9"
+    mintConfig='{"type":"erc-721","totalPrice":"10","_quantity":"1","quantity":"1"}'
+    environment="staging"
+    paymentMethod="SOL"
+ />
+
+<!-- <crossmint-pay-button
+  clientId="d15752e4-9a0b-416d-9907-ec39ceeed64f"
+  paymentMethod="ETH"
+  environment="staging"
+  mintConfig='{
+  	"type":"erc-721",
+  	"totalPrice":"0.001",
+  	"_quantity":"1"
+  }'
+/> -->
+
+</body>
+</html>
