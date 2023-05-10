@@ -116,15 +116,6 @@ header {
     cursor: pointer;
 }
 
-/*#stopUpload {*/
-/*    position: absolute;*/
-/*    width: 100%;*/
-/*    height: 100%;*/
-/*    border: 1px solid red;*/
-/*    top: 0;*/
-/*    left: 0;*/
-/*}*/
-
 .image-upload input {
     position: absolute;
     top: 0;
@@ -536,7 +527,7 @@ footer .copyright p {
     margin-bottom: 30px !important;
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 550px) {
     .generator-guide .row .item::after {
         display: none;
     }
