@@ -496,6 +496,8 @@ footer .copyright p {
 
 .chose-payment-label {
     padding-bottom: 20px;
+    color: #000 !important;
+    font-size: 20px !important;
 }
 
 .crossmint-payment {
