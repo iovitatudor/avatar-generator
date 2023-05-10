@@ -6,57 +6,64 @@ const ABI = '[{"type":"function","name":"mint","constant":false,"stateMutability
 const ADDRESS = '0xC963788545dA8B576ae8afB61bAD5a13474EA504';
 let currentURI = null;
 
+const setPayments = async (mode = 'payment') => {
+  const button = document.querySelector("crossmint-pay-button");
+  let clientId = '3bb175c4-97f6-46a7-a47b-aca37029590e';
+  let mintConfig = '{"type":"erc-721","totalPrice":"0.10","_quantity":"1","quantity":"1"}';
+
+  if (mode === 'donate') {
+    clientId = '09ec02d7-ae19-4c94-b3fe-5f837c2da5a0';
+  }
+
+  const radios = document.querySelectorAll('input[type=radio][name="payment-choice"]');
+  radios.forEach(radio => radio.addEventListener('change', () => {
+
+    if (radio.value === 'ETH') {
+      mintConfig = '{"type":"erc-721","totalPrice":"0.001","_quantity":"1","quantity":"1"}';
+      button.setAttribute("paymentMethod", 'ETH');
+    }
+    if (radio.value === 'SOL') {
+      mintConfig = '{"type":"erc-721","totalPrice":"0.001","_quantity":"1","quantity":"1"}';
+      button.setAttribute("paymentMethod", 'SOL');
+    }
+    if (radio.value === '') {
+      mintConfig = '{"type":"erc-721","totalPrice":"0.10","_quantity":"1","quantity":"1"}';
+      button.setAttribute("paymentMethod", '');
+    }
+  }));
+  button.setAttribute("mintConfig", mintConfig);
+  button.setAttribute("clientId", clientId);
+};
+
 (async () => {
   if (window.ethereum) {
-    await window.ethereum.send('eth_requestAccounts');
-    window.web3 = new Web3(window.ethereum);
+    try {
+      await window.ethereum.send('eth_requestAccounts');
+      window.web3 = new Web3(window.ethereum);
 
-    let accounts = await web3.eth.getAccounts();
-    account = accounts[0];
-    document.getElementById('account').textContent = account;
-
-    contract = await new web3.eth.Contract(JSON.parse(ABI), ADDRESS);
-
-
-    document.getElementById('prepareAvatar').onclick = () => {
-      savaImage();
-    };
-
-    // document.getElementById('payWithBtn').onclick = () => {
-    //   const button = document.querySelector("crossmint-pay-button");
-    //   button.setAttribute("paymentMethod", "SOL");
-    // };
-
-    let radios = document.querySelectorAll('input[type=radio][name="payment-choice"]');
-    radios.forEach(radio => radio.addEventListener('change', () => {
-      let mintConfig = '{"type":"erc-721","totalPrice":"10","_quantity":"1","quantity":"1"}';
-      const button = document.querySelector("crossmint-pay-button");
-
-      if (radio.value === 'ETH') {
-        mintConfig = '{"type":"erc-721","totalPrice":"0.001","_quantity":"1","quantity":"1"}';
-        button.setAttribute("paymentMethod", 'ETH');
-        button.setAttribute("mintConfig", mintConfig);
+      let accounts = await web3.eth.getAccounts();
+      account = accounts[0];
+      // document.getElementById('account').textContent = account;
+      contract = await new web3.eth.Contract(JSON.parse(ABI), ADDRESS);
+      if (account) {
+        document.getElementById('metamask-error-notification').classList.add('hidden');
+        document.getElementById('prepareAvatar').classList.toggle('hidden');
+        document.getElementById('prepareAvatar').onclick = () => {
+          savaImage();
+        };
+        await setPayments();
       }
-      if (radio.value === 'SOL') {
-        mintConfig = '{"type":"erc-721","totalPrice":"0.001","_quantity":"1","quantity":"1"}';
-        button.setAttribute("paymentMethod", 'SOL');
-        button.setAttribute("mintConfig", mintConfig);
-      }
-      if (radio.value === '') {
-        mintConfig = '{"type":"erc-721","totalPrice":"0.10","_quantity":"1","quantity":"1"}';
-        button.setAttribute("paymentMethod", '');
-        button.setAttribute("mintConfig", mintConfig);
-      }
-    }));
-
-    // document.getElementById('setUri').onclick = () => {
-    //   setURI();
-    // };
-
-    // document.getElementById('uploadImage').onclick = () => {
-    //   uploadImage();
-    // };
+    } catch (e) {
+      // document.getElementById('downloadAvatar').classList.toggle('hidden');
+      document.getElementById('metamask-error-notification').classList.remove('hidden');
+      await setPayments('donate');
+    }
+  } else {
+    // document.getElementById('downloadAvatar').classList.toggle('hidden');
+    document.getElementById('metamask-error-notification').classList.remove('hidden');
+    await setPayments('donate');
   }
+
 })();
 
 const savaImage = async () => {
@@ -84,26 +91,9 @@ const savaImage = async () => {
   });
 };
 
-
-// const uploadImage = async () => {
-//   const formData = new FormData();
-//   const imageName = makeUniqueId(10) + '.png';
-//   formData.append('avatar', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAApgAAAKYB3X3/OAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAANCSURBVEiJtZZPbBtFFMZ/M7ubXdtdb1xSFyeilBapySVU8h8OoFaooFSqiihIVIpQBKci6KEg9Q6H9kovIHoCIVQJJCKE1ENFjnAgcaSGC6rEnxBwA04Tx43t2FnvDAfjkNibxgHxnWb2e/u992bee7tCa00YFsffekFY+nUzFtjW0LrvjRXrCDIAaPLlW0nHL0SsZtVoaF98mLrx3pdhOqLtYPHChahZcYYO7KvPFxvRl5XPp1sN3adWiD1ZAqD6XYK1b/dvE5IWryTt2udLFedwc1+9kLp+vbbpoDh+6TklxBeAi9TL0taeWpdmZzQDry0AcO+jQ12RyohqqoYoo8RDwJrU+qXkjWtfi8Xxt58BdQuwQs9qC/afLwCw8tnQbqYAPsgxE1S6F3EAIXux2oQFKm0ihMsOF71dHYx+f3NND68ghCu1YIoePPQN1pGRABkJ6Bus96CutRZMydTl+TvuiRW1m3n0eDl0vRPcEysqdXn+jsQPsrHMquGeXEaY4Yk4wxWcY5V/9scqOMOVUFthatyTy8QyqwZ+kDURKoMWxNKr2EeqVKcTNOajqKoBgOE28U4tdQl5p5bwCw7BWquaZSzAPlwjlithJtp3pTImSqQRrb2Z8PHGigD4RZuNX6JYj6wj7O4TFLbCO/Mn/m8R+h6rYSUb3ekokRY6f/YukArN979jcW+V/S8g0eT/N3VN3kTqWbQ428m9/8k0P/1aIhF36PccEl6EhOcAUCrXKZXXWS3XKd2vc/TRBG9O5ELC17MmWubD2nKhUKZa26Ba2+D3P+4/MNCFwg59oWVeYhkzgN/JDR8deKBoD7Y+ljEjGZ0sosXVTvbc6RHirr2reNy1OXd6pJsQ+gqjk8VWFYmHrwBzW/n+uMPFiRwHB2I7ih8ciHFxIkd/3Omk5tCDV1t+2nNu5sxxpDFNx+huNhVT3/zMDz8usXC3ddaHBj1GHj/As08fwTS7Kt1HBTmyN29vdwAw+/wbwLVOJ3uAD1wi/dUH7Qei66PfyuRj4Ik9is+hglfbkbfR3cnZm7chlUWLdwmprtCohX4HUtlOcQjLYCu+fzGJH2QRKvP3UNz8bWk1qMxjGTOMThZ3kvgLI5AzFfo379UAAAAASUVORK5CYII=\"');
-//   formData.append('avatarName', imageName);
-//
-//   fetch("https://files.blockaids.online", {
-//     method: "POST",
-//     headers: {'Content-Type': 'application/json'},
-//     body: formData,
-//     mode: 'no-cors',
-//   }).then(res => {
-//     console.log(imageName);
-//     console.log("Request complete! response:", res);
-//   });
-// };
-
 const setURI = async (uri) => {
   try {
+    document.getElementById('error-notification').classList.add('hidden');
     const newUri = {
       "name": "BlockAids generated Avatar",
       "description": "100% of money collected from donations under this NFT campaign will be distributed for needs of people living with AIDS and from groups at risk (drug users, LGBT, sexual workers, etc.)",
@@ -116,10 +106,14 @@ const setURI = async (uri) => {
         .setUri(JSON.stringify(newUri))
         .send({from: account});
       console.log(result);
+      if (JSON.stringify(result.events) !== '{}') {
+        document.getElementById('generator-wrapper').classList.toggle('hidden');
+        document.getElementById('purchase-wrapper').classList.toggle('hidden');
+        document.getElementById('currentURI').setAttribute("src", uri);
+      } else {
+        document.getElementById('error-notification').classList.remove('hidden');
+      }
       document.getElementById('loader').classList.toggle('hidden');
-      document.getElementById('generator-wrapper').classList.toggle('hidden');
-      document.getElementById('purchase-wrapper').classList.toggle('hidden');
-      document.getElementById('currentURI').setAttribute("src", uri);
     }
   } catch (e) {
     document.getElementById('loader').classList.toggle('hidden');
@@ -137,36 +131,3 @@ const makeUniqueId = (length) => {
   }
   return result;
 }
-
-// document.addEventListener('DOMContentLoaded', async () => {
-//   const nodeId = 'ipfs-' + Math.random()
-//   const node = await Ipfs.create({repo: nodeId})
-//   console.log("Your node: " + nodeId)
-//   window.node = node
-//   const status = node.isOnline() ? 'online' : 'offline'
-//   console.log(`Node status: ${status}`)
-//
-//   //create a variable with the directory path '/my/beautiful/directory'
-//   // and a file 'awesomesause.txt' with the content 'ABC'
-//   var files = [{
-//     path: '/my/beautiful/directory/firstfile.txt',
-//     content: 'ABC'
-//   }]
-//
-//   addFile(files) //add the first file
-//
-//   //update the 'files' variable to add another file to the directory path '/mybeautiful/directory' in ipfs
-//   files = [{
-//     path: '/my/beautiful/directory/secondfile.txt',
-//     content: 'DEF'
-//   }]
-//
-//   addFile(files) //add the sectond file
-//
-//   //function to add the files
-//   async function addFile(files) {
-//     for await (const result of node.add(files)) {
-//       console.log(result)
-//     }
-//   }
-// })
