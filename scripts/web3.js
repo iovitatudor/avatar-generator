@@ -22,17 +22,22 @@ const setPayments = async (mode = 'payment') => {
     if (radio.value === 'ETH') {
       mintConfig = '{"type":"erc-721","totalPrice":"0.0005","_quantity":"1","quantity":"1"}';
       button.setAttribute("paymentMethod", 'ETH');
+      button.setAttribute("mintConfig", mintConfig);
+
     }
     if (radio.value === 'SOL') {
       mintConfig = '{"type":"erc-721","totalPrice":"0.05","_quantity":"1","quantity":"1"}';
       button.setAttribute("paymentMethod", 'SOL');
+      button.setAttribute("mintConfig", mintConfig);
+
     }
     if (radio.value === '') {
       mintConfig = '{"type":"erc-721","totalPrice":"1","_quantity":"1","quantity":"1"}';
       button.setAttribute("paymentMethod", '');
+      button.setAttribute("mintConfig", mintConfig);
     }
   }));
-  button.setAttribute("mintConfig", mintConfig);
+  // button.setAttribute("mintConfig", mintConfig);
   button.setAttribute("clientId", clientId);
 };
 
