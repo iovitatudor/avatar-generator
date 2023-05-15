@@ -53,18 +53,15 @@ function _MouseEvents() {
       isDraggable = true;
     }
   };
-  canvas.touchstart = function (e) {
-    console.log('lvfdl');
-    let mouseX = e.pageX - this.offsetLeft;
-    let mouseY = e.pageY - this.offsetTop;
+  canvas.ontouchstart = function (e) {
+    let mouseX = e.touches[0].pageX - this.offsetLeft;
+    let mouseY = e.touches[0].pageY - this.offsetTop;
 
     if (mouseX >= (currentX - star_img.width / 2) &&
       mouseX <= (currentX + star_img.width / 2) &&
       mouseY >= (currentY - star_img.height / 2) &&
       mouseY <= (currentY + star_img.height / 2)) {
       isDraggable = true;
-      //currentX = mouseX;
-      //currentY = mouseY;
     }
   };
   canvas.onmousemove = function (e) {
@@ -73,11 +70,23 @@ function _MouseEvents() {
       currentY = e.pageY - this.offsetTop;
     }
   };
+  canvas.ontouchmove = function (e) {
+    if (isDraggable) {
+      currentX = e.touches[0].pageX - this.offsetLeft;
+      currentY = e.touches[0].pageY - this.offsetTop;
+    }
+  };
   canvas.onmouseup = function (e) {
     isDraggable = false;
   };
+  canvas.ontouchend = function (e) {
+    // isDraggable = false;
+  };
   canvas.onmouseout = function (e) {
     isDraggable = false;
+  };
+  canvas.ontouchcancel = function (e) {
+    // isDraggable = false;
   };
 }
 
@@ -106,11 +115,8 @@ function _DrawImage() {
   let x = (canvas.width / 2) - (newWidth / 2);
   let y = (canvas.height / 2) - (newHeight / 2);
 
-  console.log(canvas.width, newWidth);
-
   context.drawImage(mainImage, 0, y, newWidth, newHeight);
 
-  console.log(newWidth, newHeight);
   // context.drawImage(mainImage, 0, 0, mainImage.width, mainImage.height);
 
   context.drawImage(
