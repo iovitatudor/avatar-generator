@@ -69,7 +69,6 @@ const setPayments = async (mode = 'payment') => {
     document.getElementById('metamask-error-notification').classList.remove('hidden');
     await setPayments('donate');
   }
-
 })();
 
 const savaImage = async () => {
