@@ -46,9 +46,11 @@ header {
 }
 
 .generator-guide h2 {
-    font-size: 24px;
+    font-size: 18px;
     font-weight: normal;
+    margin: 0 auto;
     margin-bottom: 25px;
+    max-width: 80%;
 }
 
 .generator-guide .row p {
@@ -668,6 +670,7 @@ footer .copyright p {
     .generator-guide h2 {
         font-size: 18px;
         text-align: left;
+        max-width: 100%;
     }
 
     .generator-guide .row .item {
@@ -710,4 +713,9 @@ footer .copyright p {
         padding-top: 4px;
         overflow: scroll;
     }
+}
+
+.powered-partner img {
+    max-width: 280px;
+    margin-top: 20px;
 }
