@@ -10,7 +10,7 @@ let currentURI = null;
 const setPayments = async (mode = 'payment') => {
   const button = document.querySelector("crossmint-pay-button");
   let clientId = '27e90189-d061-4052-9677-74da11327c0c';
-  let mintConfig = '{"type":"erc-721","totalPrice":"0.02","_quantity":"1","quantity":"1"}';
+  let mintConfig = '{"type":"erc-721","totalPrice":"30","_quantity":"1","quantity":"1"}';
 
   if (mode === 'donate') {
     clientId = 'a1764bee-e17e-443a-8ca5-aa44c59c1c10';
@@ -20,19 +20,18 @@ const setPayments = async (mode = 'payment') => {
   radios.forEach(radio => radio.addEventListener('change', () => {
 
     if (radio.value === 'ETH') {
-      mintConfig = '{"type":"erc-721","totalPrice":"0.02","_quantity":"1","quantity":"1"}';
+      mintConfig = '{"type":"erc-721","totalPrice":"30","_quantity":"1","quantity":"1"}';
       button.setAttribute("paymentMethod", 'ETH');
       button.setAttribute("mintConfig", mintConfig);
 
     }
-    if (radio.value === 'SOL') {
-      mintConfig = '{"type":"erc-721","totalPrice":"0.02","_quantity":"1","quantity":"1"}';
-      button.setAttribute("paymentMethod", 'SOL');
-      button.setAttribute("mintConfig", mintConfig);
-
-    }
+    // if (radio.value === 'SOL') {
+    //   mintConfig = '{"type":"erc-721","totalPrice":"0.02","_quantity":"1","quantity":"1"}';
+    //   button.setAttribute("paymentMethod", 'SOL');
+    //   button.setAttribute("mintConfig", mintConfig);
+    // }
     if (radio.value === '') {
-      mintConfig = '{"type":"erc-721","totalPrice":"1","_quantity":"1","quantity":"1"}';
+      mintConfig = '{"type":"erc-721","totalPrice":"30","_quantity":"1","quantity":"1"}';
       button.setAttribute("paymentMethod", '');
       button.setAttribute("mintConfig", mintConfig);
     }
